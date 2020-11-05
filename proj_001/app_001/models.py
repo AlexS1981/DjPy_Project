@@ -6,6 +6,9 @@ from django.db import models
 class Author(models.Model):
     name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return str(self.name)
+
 
 class Album(models.Model):
     name = models.CharField(max_length=200)
@@ -13,15 +16,24 @@ class Album(models.Model):
     genre = models.CharField(max_length=200)
     release_date = models.DateField(blank=True, null=True)
 
+    def __str__(self):
+        return str(self.name) + str(self.release_date) + str(self.author)
+
 
 class Playlist(models.Model):
     name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Song(models.Model):
     name = models.CharField(max_length=200)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     playlist = models.ManyToManyField(Playlist)
+
+    def __str__(self):
+        return str(self.name) + str(self.album)
 
 
 
